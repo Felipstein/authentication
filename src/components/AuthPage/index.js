@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { GitHub, LinkedIn } from "@material-ui/icons";
 
 import AuthButton from "../AuthButton";
@@ -5,10 +6,10 @@ import Logo from "../Logo";
 
 import { Container, AboutContainer, AuthContainer } from "./styles";
 
-export default function AuthPage() {
+export default function AuthPage({ title, side, children }) {
   return (
-    <Container>
-      <AboutContainer>
+    <Container side={side}>
+      <AboutContainer side={side}>
         <main>
           <Logo />
           <h1 className="title">
@@ -30,18 +31,11 @@ export default function AuthPage() {
           </span>
         </footer>
       </AboutContainer>
-      <AuthContainer>
+      <AuthContainer side={side}>
         <main>
-          <h2>Faça login em sua conta</h2>
+          <h2>{title}</h2>
           <form>
-            <div className="inputs">
-              <input type="text" placeholder="Email" />
-              <input type="password" placeholder="Senha" />
-            </div>
-            <div className="actions">
-              <AuthButton type="submit" side="left" >Logar</AuthButton>
-              <button className="forgot-btn" type="button">Esqueceu a senha?</button>
-            </div>
+            {children}
           </form>
         </main>
         <footer>
@@ -69,4 +63,14 @@ export default function AuthPage() {
       </AuthContainer>
     </Container>
   );
+}
+
+AuthPage.propTypes = {
+  title: PropTypes.string.isRequired,
+  side: PropTypes.oneOf(['left', 'right']),
+  children: PropTypes.node.isRequired,
+}
+
+AuthPage.defaultProps = {
+  side: 'right',
 }

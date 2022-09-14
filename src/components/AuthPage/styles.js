@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: row-reverse; // here
+  flex-direction: ${({ side }) => side === 'right' ? 'row' : 'row-reverse'};
   width: 100vw;
   height: 100vh;
 `;
@@ -16,25 +16,44 @@ export const AboutContainer = styled.div`
   main {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; // here
+    align-items: ${({ side }) => side === 'right' ? 'flex-end' : 'flex-start'};
 
     h1.title {
       margin-top: 15%;
-      margin-left: 70px; // here
-      width: 80%;
-      text-align: start; // here
+      ${({ side }) => side === 'right' ? (
+        css`
+          margin-right: 70px;
+        `
+      ) : (
+        css`
+          margin-left: 70px;
+          `
+      )};
+      width: 65%;
+      text-align: ${({ side }) => side === 'right' ? 'end' : 'start'};
     }
   }
   
   footer {
-    align-self: flex-start; // here
     display: flex;
     flex-direction: column;
-    text-align: start; // here
-    margin-left: 70px; // here
     margin-bottom: 75px;
     font-size: 0.95em;
     width: 50%;
+    
+    ${({ side }) => side === 'right' ? (
+      css`
+        margin-right: 70px;
+        align-self: flex-end;
+        text-align: end;
+        `
+    ) : (
+      css`
+        margin-left: 70px;
+        align-self: flex-start;
+        text-align: start;
+      `
+    )};
 
     strong {
       font-weight: 500;
@@ -72,8 +91,18 @@ export const AuthContainer = styled.div`
 
     h2 {
       font-weight: 200;
-      margin-right: 50px; // here
-      align-self: flex-end; // here added
+
+      ${({ side }) => side === 'right' ? (
+        css`
+          margin-left: 50px;
+          align-self: flex-start;
+          `
+      ) : (
+        css`
+          margin-right: 50px;
+          align-self: flex-end;
+        `
+      )}
     }
 
     form {
@@ -118,13 +147,21 @@ export const AuthContainer = styled.div`
       .actions {
         margin-top: 30px;
         display: flex;
-        flex-direction: row-reverse; // here
-        justify-content: end; // here
+        flex-direction: ${({ side }) => side === 'right' ? 'row' : 'row-reverse'};
+        justify-content: ${({ side }) => side === 'right' ? 'flex-start' : 'end'};
         align-items: center;
         width: 100%;
-        
-        button.forgot-btn {
-          margin-right: 35px; // here
+
+        button.second-btn {
+          ${({ side }) => side === 'right' ? (
+            css`
+              margin-left: 35px;
+            `
+          ) : (
+            css`
+              margin-right: 35px;
+            `
+          )};
           border: none;
           border-bottom: 2px solid transparent;
           background-color: transparent;
@@ -142,11 +179,20 @@ export const AuthContainer = styled.div`
   }
 
   footer {
-    align-self: flex-end; // here
+    align-self: ${({ side }) => side === 'right' ? 'flex-start' : 'flex-end'};
     display: flex;
     flex-direction: column;
-    align-items: flex-end; // here
-    margin-right: 70px; // here
+    ${({ side }) => side === 'right' ? (
+      css`
+        align-items: flex-start;
+        margin-left: 70px;
+        `
+    ) : (
+      css`
+        align-items: flex-end;
+        margin-right: 70px;
+      `
+    )}
     margin-bottom: 40px;
     font-size: 0.95em;
     width: 50%;
@@ -157,13 +203,13 @@ export const AuthContainer = styled.div`
     }
 
     span {
-      text-align: end; // here
+      text-align: ${({ side }) => side === 'right' ? 'start' : 'end'};
     }
 
     nav {
       display: flex;
       flex-direction: row;
-      justify-content: flex-end; // here
+      justify-content: ${({ side }) => side === 'right' ? 'flex-start' : 'flex-end'};
       gap: 10px;
       margin-top: 5px;
     }

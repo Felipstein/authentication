@@ -28,12 +28,12 @@ export default styled.button`
   transition: 0.1s ease-in-out;
   cursor: pointer;
 
-  &:hover {
+  &:hover, &:focus {
     background-color: ${({ theme }) => theme.colors.primary.light};
     border-color: ${({ theme }) => theme.colors.primary.light};
     color: ${({ theme }) => theme.colors.secondary.background};
   }
-  
+
   &:active {
     background-color: ${({ theme }) => theme.colors.primary.lighter};
     border-color: ${({ theme }) => theme.colors.primary.lighter};
