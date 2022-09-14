@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import { GitHub, LinkedIn } from "@material-ui/icons";
 
-import AuthButton from "../AuthButton";
 import Logo from "../Logo";
 
 import { Container, AboutContainer, AuthContainer } from "./styles";
 
-export default function AuthPage({ title, side, children }) {
+export default function AuthPage({ title, side, onSubmit, children }) {
   return (
     <Container side={side}>
       <AboutContainer side={side}>
@@ -34,7 +33,7 @@ export default function AuthPage({ title, side, children }) {
       <AuthContainer side={side}>
         <main>
           <h2>{title}</h2>
-          <form>
+          <form onSubmit={onSubmit} noValidate>
             {children}
           </form>
         </main>
@@ -68,6 +67,7 @@ export default function AuthPage({ title, side, children }) {
 AuthPage.propTypes = {
   title: PropTypes.string.isRequired,
   side: PropTypes.oneOf(['left', 'right']),
+  onSubmit: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 }
 

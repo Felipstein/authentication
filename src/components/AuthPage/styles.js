@@ -152,7 +152,7 @@ export const AuthContainer = styled.div`
         align-items: center;
         width: 100%;
 
-        button.second-btn {
+        button.navigate-btn {
           ${({ side }) => side === 'right' ? (
             css`
               margin-left: 35px;
