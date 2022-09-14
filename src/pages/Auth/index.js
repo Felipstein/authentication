@@ -1,11 +1,17 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useTransition, animated } from "react-spring";
 
 import AuthPage from "../../components/AuthPage";
 import AuthButton from "../../components/AuthButton";
-import { useState } from "react";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
+
+  const transitions = useTransition(isLogin, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  });
 
   function handleToggleAuthenticateMode() {
     setIsLogin(prevState => !prevState);
@@ -17,8 +23,8 @@ export default function Auth() {
     console.log('submit');
   }
 
-  return (
-    <>
+  return transitions((style, item) => (
+    <animated.div style={style}>
       {isLogin ? (
         <AuthPage title="Faça login em sua conta" onSubmit={handleSubmit} >
           <div className="inputs">
@@ -45,6 +51,6 @@ export default function Auth() {
           </div>
         </AuthPage>
       )}
-    </>
-  );
+    </animated.div>
+  ));
 }
