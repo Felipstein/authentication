@@ -1,11 +1,11 @@
 import { GitHub, LinkedIn } from "@material-ui/icons";
 
-import AuthButton from "../../components/AuthButton";
-import Logo from "../../components/Logo";
+import AuthButton from "../AuthButton";
+import Logo from "../Logo";
 
 import { Container, AboutContainer, AuthContainer } from "./styles";
 
-export default function Login() {
+export default function AuthPage() {
   return (
     <Container>
       <AboutContainer>
@@ -39,7 +39,7 @@ export default function Login() {
               <input type="password" placeholder="Senha" />
             </div>
             <div className="actions">
-              <AuthButton type="submit" side="right" >Logar</AuthButton>
+              <AuthButton type="submit" side="left" >Logar</AuthButton>
               <button className="forgot-btn" type="button">Esqueceu a senha?</button>
             </div>
           </form>

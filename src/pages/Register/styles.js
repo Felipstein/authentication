@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse; // here
   width: 100vw;
   height: 100vh;
 `;
@@ -16,22 +16,22 @@ export const AboutContainer = styled.div`
   main {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start; // here
 
     h1.title {
       margin-top: 15%;
-      margin-right: 70px;
+      margin-left: 70px; // here
       width: 80%;
-      text-align: end;
+      text-align: start; // here
     }
   }
   
   footer {
-    align-self: flex-end;
+    align-self: flex-start; // here
     display: flex;
     flex-direction: column;
-    text-align: end;
-    margin-right: 70px;
+    text-align: start; // here
+    margin-left: 70px; // here
     margin-bottom: 75px;
     font-size: 0.95em;
     width: 50%;
@@ -72,8 +72,8 @@ export const AuthContainer = styled.div`
 
     h2 {
       font-weight: 200;
-      margin-left: 50px;
-      align-self: flex-start;
+      margin-right: 50px; // here
+      align-self: flex-end; // here added
     }
 
     form {
@@ -118,12 +118,13 @@ export const AuthContainer = styled.div`
       .actions {
         margin-top: 30px;
         display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
+        flex-direction: row-reverse; // here
+        justify-content: end; // here
         align-items: center;
-
+        width: 100%;
+        
         button.forgot-btn {
-          margin-left: 35px;
+          margin-right: 35px; // here
           border: none;
           border-bottom: 2px solid transparent;
           background-color: transparent;
@@ -141,11 +142,11 @@ export const AuthContainer = styled.div`
   }
 
   footer {
-    align-self: flex-start;
+    align-self: flex-end;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin-left: 70px;
+    align-items: flex-end; // here
+    margin-right: 70px; // here
     margin-bottom: 40px;
     font-size: 0.95em;
     width: 50%;
@@ -156,12 +157,13 @@ export const AuthContainer = styled.div`
     }
 
     span {
-      text-align: start;
+      text-align: end; // here
     }
 
     nav {
       display: flex;
       flex-direction: row;
+      justify-content: flex-end;
       gap: 10px;
       margin-top: 5px;
     }
