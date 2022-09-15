@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
-
 import AuthPage from "../../components/AuthPage";
 import AuthButton from "../../components/AuthButton";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   function handleSubmit(event) {
@@ -18,7 +17,7 @@ export default function Login() {
       </div>
       <div className="actions">
         <AuthButton type="submit">Logar</AuthButton>
-        <Link className="navigate-btn" to="/register">Não possui uma conta?</Link>
+        <Link className="navigate-btn" to="/register" >Não possui uma conta?</Link>
         <Link className="navigate-btn" to="#">Esqueceu a senha?</Link>
       </div>
     </AuthPage>

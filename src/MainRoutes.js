@@ -1,10 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import Auth from "./pages/Auth";
+
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 export default function MainRoutes() {
   return (
     <Routes>
-      <Route path="/authenticate" element={<Auth />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
     </Routes>
   );
 }

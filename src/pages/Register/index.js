@@ -20,7 +20,7 @@ export default function Register() {
       </div>
       <div className="actions">
         <AuthButton type="submit" side="left">Registrar</AuthButton>
-        <Link className="navigate-btn" to="/login" >Já possui uma conta?</Link>
+        <Link className="navigate-btn" to="/login">Já possui uma conta?</Link>
       </div>
     </AuthPage>
   );

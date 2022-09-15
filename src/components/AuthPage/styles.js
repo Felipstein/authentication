@@ -1,6 +1,9 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: ${({ side }) => side === 'right' ? 'row' : 'row-reverse'};
   width: 100vw;
@@ -152,7 +155,8 @@ export const AuthContainer = styled.div`
         align-items: center;
         width: 100%;
 
-        button.navigate-btn {
+        a.navigate-btn {
+          text-decoration: none;
           ${({ side }) => side === 'right' ? (
             css`
               margin-left: 35px;
