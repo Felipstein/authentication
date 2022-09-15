@@ -1,19 +1,57 @@
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { AuthContext } from "../../contexts/AuthContext";
 import AuthPage from "../../components/AuthPage";
 import AuthButton from "../../components/AuthButton";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { authenticated, login } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(authenticated) {
+      navigate('/');
+    }
+  }, []);
+  
+  function handleEmailInputChange(event) {
+    const email = event.target.value;
+
+    setEmail(email);
+  }
+  
+  function handlePasswordInputChange(event) {
+    const password = event.target.value;
+
+    setPassword(password);
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
 
-    console.log('submit');
+    login(email, password);
   }
 
   return (
     <AuthPage title="Faça login em sua conta" onSubmit={handleSubmit} >
       <div className="inputs">
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Senha" />
+        <input
+          value={email}
+          type="email"
+          placeholder="Email"
+          onChange={handleEmailInputChange}
+        />
+        <input
+          value={password}
+          type="password"
+          placeholder="Senha"
+          onChange={handlePasswordInputChange}
+        />
       </div>
       <div className="actions">
         <AuthButton type="submit">Logar</AuthButton>

@@ -8,6 +8,14 @@ class AuthController {
   async authenticate(request, response) {
     const { email, password } = request.body;
 
+    
+    if(!email) {
+      return response.status(400).json({ error: 'Email is required' });
+    }
+    if(!password) {
+      return response.status(400).json({ error: 'Password is required' });
+    }
+
     const user = await UsersRepository.findUserByEmail(email);
     if(!user) {
       return response.status(401).json({ error: 'Authentication failed' });

@@ -1,9 +1,20 @@
-import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
+import { AuthContext } from "../../contexts/AuthContext";
 import AuthPage from "../../components/AuthPage";
 import AuthButton from "../../components/AuthButton";
 
 export default function Register() {
+  const { authenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(authenticated) {
+      navigate('/');
+    }
+  }, []);
+
   function handleSubmit(event) {
     event.preventDefault();
     
