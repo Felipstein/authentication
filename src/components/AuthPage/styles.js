@@ -17,17 +17,19 @@ export const Container = styled.div`
     }
   }
 
-  @media screen and (max-height: 800px) {
-    form {
-      position: relative;
-      bottom: 50px;
+  ${({ side }) => side === 'left' && css`
+    @media screen and (max-height: 800px) {
+      form {
+        position: relative;
+        bottom: 50px;
+      }
+      
+      h2 {
+        position: relative;
+        bottom: 50px;  
+      }
     }
-    
-    h2 {
-      position: relative;
-      bottom: 50px;  
-    }
-  }
+  `}
 
 `;
 

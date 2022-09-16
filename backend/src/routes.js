@@ -10,12 +10,13 @@ const router = Router();
 router.post('/auth', AuthController.authenticate);
 router.post('/auth/register', AuthController.register);
 
+router.use(authMiddleware);
+
 router.get('/users', UserController.index);
 router.get('/users/:id', UserController.show);
-
-router.post('/users', authMiddleware, UserController.store);
-router.put('/users/:id', authMiddleware, UserController.update);
-router.delete('/users/:id', authMiddleware, UserController.delete);
+router.post('/users', UserController.store);
+router.put('/users/:id', UserController.update);
+router.delete('/users/:id', UserController.delete);
 
 
 module.exports = router;

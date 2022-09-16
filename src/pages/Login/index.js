@@ -17,7 +17,7 @@ export default function Login() {
     if(authenticated) {
       navigate('/');
     }
-  }, []);
+  }, [authenticated]);
   
   function handleEmailInputChange(event) {
     const email = event.target.value;
