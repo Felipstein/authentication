@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
+
 import api from "../../api";
 import { AuthContext } from "../../contexts/AuthContext";
 
@@ -20,7 +21,7 @@ export default function Home() {
 
         setUsers(data);
       } catch (err) {
-        setError(err.response.message);
+        setError(`${err.response.status} - ${err.response.statusText}`);
       } finally {
         setLoading(false);
       }

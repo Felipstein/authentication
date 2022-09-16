@@ -10,7 +10,7 @@ import { useState } from "react";
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { authenticated, login } = useContext(AuthContext);
+  const { authenticated, isLoading, login, error } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function Login() {
         />
       </div>
       <div className="actions">
-        <AuthButton type="submit">Logar</AuthButton>
+        <AuthButton type="submit" loading={isLoading}>Logar</AuthButton>
         <Link className="navigate-btn" to="/register" >Não possui uma conta?</Link>
         <Link className="navigate-btn" to="#">Esqueceu a senha?</Link>
       </div>

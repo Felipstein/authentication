@@ -13,7 +13,14 @@ const buttonSide = {
   `,
 };
 
-export default styled.button`
+export const ButtonStyled = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 212.69px;
+  height: 47px;
+
   padding: 10px 80px;
   border: none;
   border-top: 1px solid;
@@ -37,5 +44,12 @@ export default styled.button`
   &:active {
     background-color: ${({ theme }) => theme.colors.primary.lighter};
     border-color: ${({ theme }) => theme.colors.primary.lighter};
+  }
+
+  &:disabled {
+    cursor: default;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: darkgray;
+    color: lightgray;
   }
 `;
