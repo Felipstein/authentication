@@ -8,6 +8,27 @@ export const Container = styled.div`
   flex-direction: ${({ side }) => side === 'right' ? 'row' : 'row-reverse'};
   width: 100vw;
   height: 100vh;
+
+  @media screen and (max-height: 870px) {
+    footer {
+      span, strong {
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  @media screen and (max-height: 800px) {
+    form {
+      position: relative;
+      bottom: 50px;
+    }
+    
+    h2 {
+      position: relative;
+      bottom: 50px;  
+    }
+  }
+
 `;
 
 export const AboutContainer = styled.div`
