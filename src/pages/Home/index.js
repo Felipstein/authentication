@@ -9,7 +9,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
   useEffect(() => {
     (async function() {
@@ -29,6 +29,12 @@ export default function Home() {
 
   return (
     <>
+      <h1>Logado como:</h1>
+      <strong>{user.id}</strong><br />
+      <strong>{user.name}</strong><br />
+      <strong>{user.email}</strong><br />
+      <strong>{user.registrationDate}</strong><br />
+
       <h1>Usuários:</h1>
       
       {loading && (
@@ -44,7 +50,6 @@ export default function Home() {
           <span>ID: {user.id}</span><br />
           <span>Name: {user.name}</span><br />
           <span>Email: {user.email}</span><br />
-          <span>Password: {user.password}</span><br />
           <span>Registration Date: {user.registrationDate}</span><br /><br />
         </div>
       ))}
