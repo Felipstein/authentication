@@ -141,33 +141,6 @@ export const AuthContainer = styled.div`
         display: flex;
         flex-direction: column;
         width: 100%;
-
-        input {
-          padding: 15px 35px;
-          background-color: ${({ theme }) => theme.colors.secondary.light};
-          color: #ddd;
-          border: none;
-          border-top: 1px solid;
-          border-bottom: 1px solid;
-          border-color: ${({ theme }) => theme.colors.secondary.lighter};
-          outline: 0;
-          transition-property: border-color, background-color, color;
-          transition: 0.16s ease-in-out;
-
-          & + input {
-            border-top: none;
-          }
-
-          &:hover, &:focus {
-            background-color: ${({ theme }) => theme.colors.secondary.lighter};
-            border-color: ${({ theme }) => theme.colors.secondary.light};
-            color: #fff;
-          }
-
-          &::placeholder {
-            color: ${({ theme }) => theme.colors.secondary.text};
-          }
-        }
       }
 
       .actions {
