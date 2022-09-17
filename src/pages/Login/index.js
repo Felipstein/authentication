@@ -1,16 +1,14 @@
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import AuthPage from "../../components/AuthPage";
 import AuthButton from "../../components/AuthButton";
-import { useEffect } from "react";
-import { useState } from "react";
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { authenticated, isLoading, login, error } = useContext(AuthContext);
+  const { authenticated, isLoading, login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {

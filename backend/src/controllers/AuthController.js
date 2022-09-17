@@ -10,19 +10,19 @@ class AuthController {
 
     
     if(!email) {
-      return response.status(400).json({ error: 'Email is required' });
+      return response.status(400).json({ error: 'E-mail é obrigatório' });
     }
     if(!password) {
-      return response.status(400).json({ error: 'Password is required' });
+      return response.status(400).json({ error: 'Senha é obrigatória' });
     }
 
     const user = await UsersRepository.findUserByEmail(email);
     if(!user) {
-      return response.status(401).json({ error: 'Authentication failed' });
+      return response.status(401).json({ error: 'E-mail não encontrado' });
     }
     
     if(!await checkPassword(user, password)) {
-      return response.status(401).json({ error: 'Authentication failed' });
+      return response.status(401).json({ error: 'Senha incorreta' });
     }
     
     const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '7d' });
@@ -38,25 +38,25 @@ class AuthController {
     const { name, email, password, confirmPassword } = request.body;
 
     if(!name) {
-      return response.status(400).json( { error: 'Name is required' });
+      return response.status(400).json( { error: 'Nome é obrigatório' });
     }
     if(!email) {
-      return response.status(400).json( { error: 'Email is required' });
+      return response.status(400).json( { error: 'E-mail é obrigatório' });
     }
     if(!password) {
-      return response.status(400).json( { error: 'Password is required' });
+      return response.status(400).json( { error: 'Senha é obrigatória' });
     }
     if(!confirmPassword) {
-      return response.status(400).json( { error: 'Confirm password is required' });
+      return response.status(400).json( { error: 'Confirmar senha é obrigatória' });
     }
 
     if(password !== confirmPassword) {
-      return response.status(400).json( { error: 'Passwords do not match' });
+      return response.status(400).json( { error: 'As senhas não coincidem' });
     }
 
     const emailAlreadyExists = await UsersRepository.findUserByEmail(email);
     if(emailAlreadyExists) {
-      return response.status(400).json( { error: 'Email already in use' });
+      return response.status(400).json( { error: 'E-mail já está em uso' });
     }
 
     const encryptedPassword = createPasswordHash(password);

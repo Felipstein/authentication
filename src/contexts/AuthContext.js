@@ -1,5 +1,6 @@
 import { useState, createContext, useEffect } from "react";
 
+import toast from '../utils/toast';
 import delay from '../utils/delay';
 import api from '../api';
 
@@ -8,12 +9,9 @@ export const AuthContext = createContext();
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setError(null);
-    const user = localStorage.getItem('auth:user');
-    const token = localStorage.getItem('auth:token');
+    const { user, token } = getTokenAndUserStoraged();
 
     if(!!user ^ !!token) {
       handleLogout();
@@ -27,9 +25,29 @@ export default function AuthProvider({ children }) {
     setIsLoading(false);
   }, []);
 
+  function getTokenAndUserStoraged() {
+    const user = localStorage.getItem('auth:user');
+    const token = localStorage.getItem('auth:token');
+
+    return { user, token }
+  }
+
+  function setTokenAndUser(token, user) {
+    localStorage.setItem('auth:user', JSON.stringify(user));
+    localStorage.setItem('auth:token', token);
+    api.defaults.headers.common.Authorization = `Bearer ${token}`
+    setUser(user);
+  }
+
+  function unsetTokenAndUser() {
+    localStorage.removeItem('auth:user');
+    localStorage.removeItem('auth:token');
+    api.defaults.headers.common.Authorization = undefined;
+    setUser(null);
+  }
+
   async function handleLogin(email, password) {
     try {
-      setError(null);
       setIsLoading(true);
 
       await delay(2000);
@@ -37,13 +55,9 @@ export default function AuthProvider({ children }) {
         email, password,
       });
 
-      
-      localStorage.setItem('auth:user', JSON.stringify(user));
-      localStorage.setItem('auth:token', token);
-      api.defaults.headers.common.Authorization = `Bearer ${token}`
-      setUser(user);
+      setTokenAndUser(token, user);
     } catch (err) {
-      setError(err.response);
+      toast({ text: err.response.data.error, type: 'danger' })
     } finally {
       setIsLoading(false);
     }
@@ -51,15 +65,12 @@ export default function AuthProvider({ children }) {
   
   function handleLogout() {
     setIsLoading(true);
-    localStorage.removeItem('auth:user');
-    localStorage.removeItem('auth:token');
-    api.defaults.headers.common.Authorization = undefined;
-    setUser(null);
+    unsetTokenAndUser();
     setIsLoading(false);
   }
 
   return (
-    <AuthContext.Provider value={{ authenticated: !!user, isLoading, user, login: handleLogin, logout: handleLogout, error }}>
+    <AuthContext.Provider value={{ authenticated: !!user, isLoading, user, login: handleLogin, logout: handleLogout }}>
       {children}
     </AuthContext.Provider>
   );

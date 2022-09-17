@@ -1,16 +1,47 @@
+import { useEffect, useState } from 'react';
+import EventManager from '../../../libs/EventManager';
 import ToastMessage from '../ToastMessage';
 
 import { Container } from './styles';
 
 export default function ToastContainer() {
+  const [toasts, setToasts] = useState([]);
+
+  useEffect(() => {
+    EventManager.on('addtoast', handleAddToast);
+
+    return () => {
+      EventManager.removeListener(handleAddToast);
+    };
+  }, []);
+
+  function handleAddToast({ text, type, duration }) {
+    const toast = { id: Math.random(), text, type, duration };
+
+    setToasts((prevState) => [
+      ...prevState,
+      toast
+    ]);
+  }
+
+  function handleRemoveToast(id) {
+    setToasts((prevState) => prevState.filter(toast => toast.id !== id));
+  }
+
   return (
     <Container>
-      <ToastMessage text="Success toast" />
-      <ToastMessage text="Info toats" />
-      <ToastMessage text="Warning toast" />
-      <ToastMessage text="Danger toast" />
-      <ToastMessage text="A biggest anormal default uncommon toast" />
-      <ToastMessage text="Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum Lorem Impsum " />
+      {toasts.map(toast => (
+        <ToastMessage
+          key={toast.id}
+          data={{
+            id: toast.id,
+            text: toast.text,
+            type: toast.type,
+            duration: toast.duration,
+          }}
+          onRemoveToast={handleRemoveToast}
+        />
+      ))}
     </Container>
   );
 }
