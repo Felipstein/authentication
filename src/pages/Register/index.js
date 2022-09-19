@@ -25,8 +25,7 @@ export default function Register() {
   const { authenticated } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // const isFormValid = Boolean(name && email && password && confirmPassword && errors.length === 0);
-  const isFormValid = true;
+  const isFormValid = Boolean(name && email && password && confirmPassword && errors.length === 0);
 
   useEffect(() => {
     if(authenticated) {

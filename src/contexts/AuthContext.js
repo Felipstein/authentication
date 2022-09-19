@@ -57,6 +57,11 @@ export default function AuthProvider({ children }) {
 
       setTokenAndUser(token, user);
     } catch (err) {
+      if(!err.response.status) {
+        toast({ text: 'Parece que nossos servidores não estão nos respondendo no momento, tente novamente mais tarde', type: 'danger' });
+        return false;
+      }
+
       toast({ text: err.response.data.error, type: 'danger' })
     } finally {
       setIsLoading(false);
@@ -75,6 +80,11 @@ export default function AuthProvider({ children }) {
 
       setTokenAndUser(token, user);
     } catch(err) {
+      if(!err.response.status) {
+        toast({ text: 'Parece que nossos servidores não estão nos respondendo no momento, tente novamente mais tarde', type: 'danger' });
+        return false;
+      }
+
       toast({ text: err.response.data.error , type: 'danger' });
     } finally {
       setIsLoading(false);
