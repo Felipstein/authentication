@@ -61,6 +61,8 @@ export default function AuthProvider({ children }) {
   }
 
   async function handleLogin(email, password) {
+    let success = false;
+
     try {
       setIsLoading(true);
 
@@ -70,6 +72,7 @@ export default function AuthProvider({ children }) {
       });
 
       setTokenAndUser(token, user);
+      success = true;
     } catch (err) {
       if(!err.response.status) {
         toast({ text: 'Parece que nossos servidores não estão nos respondendo no momento, tente novamente mais tarde', type: 'danger' });
@@ -80,11 +83,13 @@ export default function AuthProvider({ children }) {
       toast({ text: err.response.data.error, type: 'danger' })
     } finally {
       setIsLoading(false);
-      return true;
+      return success;
     }
   }
   
   async function handleRegister(name, email, password, confirmPassword) {
+    let success = false;
+
     try {
       setIsLoading(true);
 
@@ -94,6 +99,7 @@ export default function AuthProvider({ children }) {
       });
 
       setTokenAndUser(token, user);
+      success = true;
     } catch(err) {
       if(!err.response.status) {
         toast({ text: 'Parece que nossos servidores não estão nos respondendo no momento, tente novamente mais tarde', type: 'danger' });
@@ -103,7 +109,7 @@ export default function AuthProvider({ children }) {
       toast({ text: err.response.data.error , type: 'danger' });
     } finally {
       setIsLoading(false);
-      return true;
+      return success;
     }
   }
 
