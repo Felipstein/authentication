@@ -9,6 +9,7 @@ const router = Router();
 
 router.post('/auth', AuthController.authenticate);
 router.post('/auth/register', AuthController.register);
+router.post('/auth/validate', AuthController.validate);
 
 router.use(authMiddleware);
 

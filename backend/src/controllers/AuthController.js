@@ -74,6 +74,21 @@ class AuthController {
     return response.json({ user, token });
   }
 
+  async validate(request, response) {
+    const { token } = request.body;
+    
+    if(!token) {
+      return response.sendStatus(400);
+    }
+
+    try {
+      jwt.verify(token, process.env.SECRET_KEY);
+      return response.sendStatus(200);
+    } catch {
+      return response.status(401).json({ error: 'Invalid token' });
+    }
+  }
+
 }
 
 module.exports = new AuthController();

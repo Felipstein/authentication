@@ -11,18 +11,31 @@ export default function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const { user, token } = getTokenAndUserStoraged();
+    (async function () {
+      const { user, token } = getTokenAndUserStoraged();
 
-    if(!!user ^ !!token) {
-      handleLogout();
-      return;
-    }
+      if(!!user ^ !!token) {
+        handleLogout();
+        return;
+      }
 
-    if(user && token) {
-      api.defaults.headers.common.Authorization = `Bearer ${token}`
-      setUser(JSON.parse(user));
-    }
-    setIsLoading(false);
+      if(!token) {
+        return;
+      }
+
+      try {
+        await api.post('/auth/validate', { token });
+
+        if(user && token) {
+          api.defaults.headers.common.Authorization = `Bearer ${token}`
+          setUser(JSON.parse(user));
+        }
+      } catch {
+        unsetTokenAndUser();
+      } finally {
+        setIsLoading(false);
+      }
+    })();
   }, []);
 
   function getTokenAndUserStoraged() {
