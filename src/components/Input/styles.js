@@ -1,51 +1,43 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  padding: 15px 35px;
-  background-color: ${({ theme }) => theme.colors.secondary.light};
-  border-top: 1px solid;
-  border-bottom: 1px solid;
-  border-color: ${({ theme }) => theme.colors.secondary.lighter};
-  transition-property: border-color, background-color, color;
-  transition: 0.16s ease-in-out;
-
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: green;
-
+  padding: 15px 35px;
+  border: 1px solid;
+  border-left: none;
+  border-right: none;
+  width: 100%;
+  cursor: pointer;
+  
   & + & {
     border-top: none;
   }
   
-  &:hover, &:focus {
-    background-color: ${({ theme }) => theme.colors.secondary.lighter};
-    border-color: ${({ theme }) => theme.colors.secondary.light};
-    color: #fff;
+  .main-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    input {
+      width: 100%;
+      margin-left: 8px;
+    }
   }
   
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.secondary.text};
-  }
-
-  input {
-    margin-left: 10px;
-  }
-
-  span {
-    font-size: 14px;
+  
+  span#error {
     color: ${({ theme }) => theme.colors.red.main};
-    background-color: black;
+    font-weight: 500;
+    user-select: none;
+    font-size: 12px;
   }
 `;
 
 export const InputStyled = styled.input`
-  padding: 0;
-  width: 70%;
   color: #ddd;
   border: none;
   outline: 0;
-  background-color: red;
-
 `;

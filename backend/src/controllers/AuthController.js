@@ -50,6 +50,10 @@ class AuthController {
       return response.status(400).json( { error: 'Confirmar senha é obrigatória' });
     }
 
+    if(password.length < 3) {
+      return response.status(400).json({ error: 'Senha não deve ter menos que 3 (três) caracteres' });
+    }
+
     if(password !== confirmPassword) {
       return response.status(400).json( { error: 'As senhas não coincidem' });
     }

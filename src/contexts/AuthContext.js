@@ -60,9 +60,28 @@ export default function AuthProvider({ children }) {
       toast({ text: err.response.data.error, type: 'danger' })
     } finally {
       setIsLoading(false);
+      return true;
     }
   }
   
+  async function handleRegister(name, email, password, confirmPassword) {
+    try {
+      setIsLoading(true);
+
+      await delay(2000);
+      const { data: { user, token } } = await api.post('/auth/register', {
+        name, email, password, confirmPassword,
+      });
+
+      setTokenAndUser(token, user);
+    } catch(err) {
+      toast({ text: err.response.data.error , type: 'danger' });
+    } finally {
+      setIsLoading(false);
+      return true;
+    }
+  }
+
   function handleLogout() {
     setIsLoading(true);
     unsetTokenAndUser();
@@ -70,7 +89,16 @@ export default function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ authenticated: !!user, isLoading, user, login: handleLogin, logout: handleLogout }}>
+    <AuthContext.Provider
+      value={{
+        authenticated: !!user,
+        isLoading,
+        user,
+        login: handleLogin,
+        register: handleRegister,
+        logout: handleLogout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

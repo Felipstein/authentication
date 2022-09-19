@@ -48,8 +48,8 @@ export const ButtonStyled = styled.button`
 
   &:disabled {
     cursor: default;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-color: darkgray;
-    color: lightgray;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.3);
   }
 `;
