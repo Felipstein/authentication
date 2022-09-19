@@ -8,7 +8,7 @@ export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async function () {
@@ -24,6 +24,7 @@ export default function AuthProvider({ children }) {
       }
 
       try {
+        setIsLoading(true);
         await api.post('/auth/validate', { token });
 
         if(user && token) {
