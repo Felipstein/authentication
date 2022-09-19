@@ -76,6 +76,7 @@ export default function AuthProvider({ children }) {
         return false;
       }
 
+
       toast({ text: err.response.data.error, type: 'danger' })
     } finally {
       setIsLoading(false);

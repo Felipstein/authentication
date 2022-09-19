@@ -5,24 +5,14 @@ class UsersRepository {
 
   listAll() {
     return new Promise((resolve) => {
-      const usersMapped = users.map(user => {
-        const newUser = { ...user } 
-
-        delete newUser.password;
-
-        return newUser;
-      });
-
-      resolve(usersMapped);
+      resolve(users);
     });
   }
 
   findUserById(id) {
     return new Promise((resolve) => {
       const user = users.find(userObj => userObj.id === id);
-
-      delete user.password;
-
+      
       resolve(user);
     });
   }

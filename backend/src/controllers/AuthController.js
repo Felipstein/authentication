@@ -27,11 +27,7 @@ class AuthController {
     
     const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '7d' });
 
-    const userCloned = { ...user };
-
-    delete userCloned.password;
-
-    response.status(200).json({ user: userCloned, token });
+    response.status(200).json({ user, token });
   }
 
   async register(request, response) {
@@ -63,13 +59,11 @@ class AuthController {
       return response.status(400).json( { error: 'E-mail já está em uso' });
     }
 
-    const encryptedPassword = createPasswordHash(password);
+    const encryptedPassword = await createPasswordHash(password);
 
     const user = await UsersRepository.createUser({ name, email, password: encryptedPassword, registrationDate: new Date() });
 
     const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY, { expiresIn: '7d' });
-
-    delete user.password;
 
     return response.json({ user, token });
   }
