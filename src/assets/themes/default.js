@@ -14,6 +14,7 @@ export default {
     secondary: {
       text: '#b5b5c9',
       lighter: '#616183',
+      preLighter: '#4C4C67',
       light: '#36364a',
       background: '#1d1d30',
     },

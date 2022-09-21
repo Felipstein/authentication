@@ -9,6 +9,9 @@ export const Container = styled.div`
   width: 100vw;
   height: 100vh;
 
+  background-color: ${({ theme }) => theme.colors.primary.background};
+  color: ${({ theme }) => theme.colors.primary.text};
+
   @media screen and (max-height: 870px) {
     footer {
       span, strong {
@@ -105,9 +108,8 @@ export const AuthContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
+
   background-color: ${({ theme }) => theme.colors.secondary.background};
-  
   color: ${({ theme }) => theme.colors.secondary.text};
 
   main {

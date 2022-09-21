@@ -10,8 +10,8 @@ export default createGlobalStyle`
 
   ${({ theme }) => css`
     body {
-      background-color: ${theme.colors.primary.background};
-      color: ${theme.colors.primary.text};
+      background-color: ${theme.colors.secondary.background};
+      color: ${theme.colors.secondary.text};
     }
 
     body, input, select, button, h1, h2, h3, h4, h5, h6 {
