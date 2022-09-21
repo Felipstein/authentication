@@ -77,7 +77,20 @@ class AuthController {
 
     try {
       jwt.verify(token, process.env.SECRET_KEY);
-      return response.sendStatus(200);
+
+      const { id } = jwt.decode(token);
+
+      if(!id) {
+        return response.sendStatus(400);
+      }
+
+      const user = await UsersRepository.findUserById(id);
+
+      if(!user) {
+        return response.sendStatus(400);
+      }
+
+      return response.status(200).json(user);
     } catch {
       return response.status(401).json({ error: 'Invalid token' });
     }

@@ -25,7 +25,9 @@ export default function AuthProvider({ children }) {
 
       try {
         setIsLoading(true);
-        await api.post('/auth/validate', { token });
+        const { data: user } = await api.post('/auth/validate', { token });
+
+        console.log(user);
 
         if(user && token) {
           api.defaults.headers.common.Authorization = `Bearer ${token}`
@@ -39,22 +41,19 @@ export default function AuthProvider({ children }) {
     })();
   }, []);
 
-  function getTokenAndUserStoraged() {
-    const user = localStorage.getItem('auth:user');
+  function getTokenStoraged() {
     const token = localStorage.getItem('auth:token');
 
-    return { user, token }
+    return { token }
   }
 
-  function setTokenAndUser(token, user) {
-    localStorage.setItem('auth:user', JSON.stringify(user));
+  function setToken(token) {
     localStorage.setItem('auth:token', token);
     api.defaults.headers.common.Authorization = `Bearer ${token}`
     setUser(user);
   }
 
-  function unsetTokenAndUser() {
-    localStorage.removeItem('auth:user');
+  function unsetToken() {
     localStorage.removeItem('auth:token');
     api.defaults.headers.common.Authorization = undefined;
     setUser(null);
