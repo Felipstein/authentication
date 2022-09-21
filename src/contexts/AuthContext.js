@@ -12,14 +12,13 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     (async function () {
-      const token = getTokenStoraged();
-
-      if(!!user ^ !!token) {
-        handleLogout();
-        return;
-      }
+      const token = localStorage.getItem('auth:token');
 
       if(!token) {
+        if(user) {
+          handleLogout();
+        }
+
         return;
       }
 
@@ -27,34 +26,22 @@ export default function AuthProvider({ children }) {
         setIsLoading(true);
         const { data: user } = await api.post('/auth/validate', { token });
 
-        console.log(user);
-
-        if(user && token) {
+        if(user) {
           api.defaults.headers.common.Authorization = `Bearer ${token}`
-          setUser(JSON.parse(user));
+          setUser(user);
         }
       } catch {
-        unsetTokenAndUser();
+        handleLogout();
       } finally {
         setIsLoading(false);
       }
     })();
   }, []);
 
-  function getTokenStoraged() {
-    return localStorage.getItem('auth:token');
-  }
-
-  function setToken(token) {
+  function setTokenAndUser(token, user) {
     localStorage.setItem('auth:token', token);
     api.defaults.headers.common.Authorization = `Bearer ${token}`
     setUser(user);
-  }
-
-  function unsetToken() {
-    localStorage.removeItem('auth:token');
-    api.defaults.headers.common.Authorization = undefined;
-    setUser(null);
   }
 
   async function handleLogin(email, password) {
@@ -111,9 +98,9 @@ export default function AuthProvider({ children }) {
   }
 
   function handleLogout() {
-    setIsLoading(true);
-    unsetTokenAndUser();
-    setIsLoading(false);
+    localStorage.removeItem('auth:token');
+    api.defaults.headers.common.Authorization = undefined;
+    setUser(null);
   }
 
   return (
