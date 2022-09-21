@@ -12,7 +12,7 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     (async function () {
-      const { user, token } = getTokenAndUserStoraged();
+      const token = getTokenStoraged();
 
       if(!!user ^ !!token) {
         handleLogout();
@@ -42,9 +42,7 @@ export default function AuthProvider({ children }) {
   }, []);
 
   function getTokenStoraged() {
-    const token = localStorage.getItem('auth:token');
-
-    return { token }
+    return localStorage.getItem('auth:token');
   }
 
   function setToken(token) {
